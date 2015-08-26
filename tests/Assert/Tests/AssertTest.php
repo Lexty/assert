@@ -808,6 +808,39 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider isXmlStringDataprovider
+     */
+    public function testIsXmlString($content)
+    {
+        Assertion::isXmlString($content);
+    }
+
+    public static function isXmlStringDataprovider()
+    {
+        return array(
+            array("<?xml version='1.0'?>\n<root attr='value'><node>node content</node><node>node content</node></root>"),
+            array('<root cat:attr="value"><node>node content</node><node>node content</node></root>'),
+        );
+    }
+
+    /**
+     * @dataProvider isXmlStringInvalidStringDataprovider
+     */
+    public function testIsXmlStringExpectingException($invalidString)
+    {
+        $this->setExpectedException('Assert\AssertionFailedException', null, Assertion::INVALID_XML_STRING);
+        Assertion::isXmlString($invalidString);
+    }
+
+    public static function isXmlStringInvalidStringDataprovider()
+    {
+        return array(
+            'no xml string' => array('invalid xml encoded string'),
+            'error in xml string' => array('<root></root><root></root>'),
+        );
+    }
+
+    /**
      * @dataProvider providesValidUuids
      */
     public function testValidUuids($uuid)

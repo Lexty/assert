@@ -66,11 +66,13 @@ namespace Assert;
  * @method \Assert\LazyAssertion classExists($message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion implementsInterface($interfaceName, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion isJsonString($message = null, $propertyPath = null)
+ * @method \Assert\LazyAssertion isXmlString($message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion uuid($message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion count($count, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion choicesNotEmpty($choices, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion methodExists($object, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion isObject($message = null, $propertyPath = null)
+ * @method \Assert\LazyAssertion date($format, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion all()
  * @method \Assert\LazyAssertion nullOr()
  * METHODEND

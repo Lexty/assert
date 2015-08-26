@@ -71,6 +71,7 @@ use BadMethodCallException;
  * @method static void nullOrClassExists($value, $message = null, $propertyPath = null)
  * @method static void nullOrImplementsInterface($class, $interfaceName, $message = null, $propertyPath = null)
  * @method static void nullOrIsJsonString($value, $message = null, $propertyPath = null)
+ * @method static void nullOrIsXmlString($value, $message = null, $propertyPath = null)
  * @method static void nullOrUuid($value, $message = null, $propertyPath = null)
  * @method static void nullOrCount($countable, $count, $message = null, $propertyPath = null)
  * @method static void nullOrChoicesNotEmpty($values, $choices, $message = null, $propertyPath = null)
@@ -127,6 +128,7 @@ use BadMethodCallException;
  * @method static void allClassExists($value, $message = null, $propertyPath = null)
  * @method static void allImplementsInterface($class, $interfaceName, $message = null, $propertyPath = null)
  * @method static void allIsJsonString($value, $message = null, $propertyPath = null)
+ * @method static void allIsXmlString($value, $message = null, $propertyPath = null)
  * @method static void allUuid($value, $message = null, $propertyPath = null)
  * @method static void allCount($countable, $count, $message = null, $propertyPath = null)
  * @method static void allChoicesNotEmpty($values, $choices, $message = null, $propertyPath = null)
@@ -193,6 +195,7 @@ class Assertion
     const INVALID_GREATER           = 212;
     const INVALID_GREATER_OR_EQUAL  = 212;
     const INVALID_DATE              = 213;
+    const INVALID_XML_STRING        = 214;
 
     /**
      * Exception to throw when an assertion failed.
@@ -1404,6 +1407,32 @@ class Assertion
             );
 
             throw static::createException($value, $message, static::INVALID_JSON_STRING, $propertyPath);
+        }
+    }
+
+    /**
+     * Assert that the given string is a valid XML string.
+     *
+     * @param mixed $value
+     * @param string|null $message
+     * @param string|null $propertyPath
+     * @return void
+     * @throws \Assert\AssertionFailedException
+     */
+    public static function isXmlString($value, $message = null, $propertyPath = null)
+    {
+        $previous = libxml_use_internal_errors(true);
+        $object = simplexml_load_string($value);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+
+        if (false === $object) {
+            $message = sprintf(
+                $message ?: 'Value "%s" is not a valid XML string.',
+                self::stringify($value)
+            );
+
+            throw static::createException($value, $message, static::INVALID_XML_STRING, $propertyPath);
         }
     }
 

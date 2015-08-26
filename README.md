@@ -179,6 +179,7 @@ Assertion::eq($actual, $expected);
 Assertion::same($actual, $expected);
 Assertion::implementsInterface($value, $interfaceName);
 Assertion::isJsonString($value);
+Assertion::isXmlString($value);
 Assertion::uuid($value);
 Assertion::choicesNotEmpty($value, $choices)
 Assertion::isObject($value)

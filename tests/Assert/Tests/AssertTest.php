@@ -999,6 +999,11 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         Assertion::methodExists('methodExists', new Assertion());
     }
 
+    public function testPropertyExists()
+    {
+        Assertion::propertyExists('foo', new ClassWithProperty());
+    }
+
     /**
      * @test
      */
@@ -1181,4 +1186,9 @@ class OneCountable implements \Countable
     {
         return 1;
     }
+}
+
+class ClassWithProperty
+{
+    public $foo;
 }

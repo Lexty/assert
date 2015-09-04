@@ -184,6 +184,7 @@ Assertion::uuid($value);
 Assertion::choicesNotEmpty($value, $choices)
 Assertion::isObject($value)
 Assertion::methodExists($value, $object)
+Assertion::propertyExists($value, $object)
 Assertion::lessThan($value, $limit)
 Assertion::lessOrEqualThan($value, $limit)
 Assertion::greaterThan($value, $limit)

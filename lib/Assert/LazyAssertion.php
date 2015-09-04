@@ -71,6 +71,7 @@ namespace Assert;
  * @method \Assert\LazyAssertion count($count, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion choicesNotEmpty($choices, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion methodExists($object, $message = null, $propertyPath = null)
+ * @method \Assert\LazyAssertion propertyExists($object, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion isObject($message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion date($format, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion all()

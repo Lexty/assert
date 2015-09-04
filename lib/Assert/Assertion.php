@@ -76,6 +76,7 @@ use BadMethodCallException;
  * @method static void nullOrCount($countable, $count, $message = null, $propertyPath = null)
  * @method static void nullOrChoicesNotEmpty($values, $choices, $message = null, $propertyPath = null)
  * @method static void nullOrMethodExists($value, $object, $message = null, $propertyPath = null)
+ * @method static void nullOrPropertyExists($value, $object, $message = null, $propertyPath = null)
  * @method static void nullOrIsObject($value, $message = null, $propertyPath = null)
  * @method static void nullOrDate($value, $format, $message = null, $propertyPath = null)
  * @method static void allEq($value, $value2, $message = null, $propertyPath = null)
@@ -133,6 +134,7 @@ use BadMethodCallException;
  * @method static void allCount($countable, $count, $message = null, $propertyPath = null)
  * @method static void allChoicesNotEmpty($values, $choices, $message = null, $propertyPath = null)
  * @method static void allMethodExists($value, $object, $message = null, $propertyPath = null)
+ * @method static void allPropertyExists($value, $object, $message = null, $propertyPath = null)
  * @method static void allIsObject($value, $message = null, $propertyPath = null)
  * @method static void allDate($value, $format, $message = null, $propertyPath = null)
  * METHODEND
@@ -196,6 +198,7 @@ class Assertion
     const INVALID_GREATER_OR_EQUAL  = 212;
     const INVALID_DATE              = 213;
     const INVALID_XML_STRING        = 214;
+    const INVALID_PROPERTY          = 215;
 
     /**
      * Exception to throw when an assertion failed.
@@ -1564,6 +1567,30 @@ class Assertion
         if (!method_exists($object, $value)) {
             $message = sprintf(
                 $message ?: 'Expected "%s" does not a exist in provided object.',
+                self::stringify($value)
+            );
+
+            throw static::createException($value, $message, static::INVALID_METHOD, $propertyPath);
+        }
+    }
+
+    /**
+     * Determines that the named property is defined in the provided object.
+     *
+     * @param string $value
+     * @param mixed  $object
+     * @param null   $message
+     * @param null   $propertyPath
+     *
+     * @throws
+     */
+    public static function propertyExists($value, $object, $message = null, $propertyPath = null)
+    {
+        self::isObject($object, $message, $propertyPath);
+
+        if (!property_exists($object, $value)) {
+            $message = sprintf(
+                $message ?: 'Expected property "%s" does not a exist in provided object.',
                 self::stringify($value)
             );
 

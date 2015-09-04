@@ -74,6 +74,7 @@ use ReflectionClass;
  * @method \Assert\AssertionChain count($count, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain choicesNotEmpty($choices, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain methodExists($object, $message = null, $propertyPath = null)
+ * @method \Assert\AssertionChain propertyExists($object, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain isObject($message = null, $propertyPath = null)
  * @method \Assert\AssertionChain date($format, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain lessThan($limit, $message = null, $propertyPath = null)

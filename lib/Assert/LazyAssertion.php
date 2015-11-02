@@ -74,6 +74,7 @@ namespace Assert;
  * @method \Assert\LazyAssertion propertyExists($object, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion isObject($message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion date($format, $message = null, $propertyPath = null)
+ * @method \Assert\LazyAssertion sameKeysInArrays($array2, $message = null, $propertyPath = null)
  * @method \Assert\LazyAssertion all()
  * @method \Assert\LazyAssertion nullOr()
  * METHODEND

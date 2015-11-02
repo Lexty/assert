@@ -81,6 +81,7 @@ use ReflectionClass;
  * @method \Assert\AssertionChain lessOrEqualThan($limit, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain greaterThan($limit, $message = null, $propertyPath = null)
  * @method \Assert\AssertionChain greaterOrEqualThan($limit, $message = null, $propertyPath = null)
+ * @method \Assert\AssertionChain sameKeysInArrays($array2, $message = null, $propertyPath = null)
  * METHODEND
  */
 class AssertionChain

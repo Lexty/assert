@@ -1173,6 +1173,24 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             array('2012.02.29 12:60:36.432563', 'Y.m.d H:i:s.u')
         );
     }
+
+    public function testSameKeysInArrays() {
+        Assertion::sameKeysInArrays(array('foo' => 'bar', 'quz' => 'qwe'), array('quz' => 1, 'foo' => null));
+    }
+
+    public function testNotSameKeysInArrays() {
+        $this->setExpectedException('Assert\AssertionFailedException', null, Assertion::INVALID_SAME_KEYS);
+        Assertion::sameKeysInArrays(array('foo' => 'bar', 'quz' => 'qwe'), array('quz' => 1, 'foo' => null, 'bar' => false));
+    }
+
+    public function testSameKeysInArraysRecursive() {
+        Assertion::sameKeysInArraysRecursive(array('foo' => 'bar', 'quz' => array('bar' => 'foo')), array('quz' => array('bar' => 'taw'), 'foo' => null));
+    }
+
+    public function testNotSameKeysInArraysRecursive() {
+        $this->setExpectedException('Assert\AssertionFailedException', null, Assertion::INVALID_SAME_KEYS);
+        Assertion::sameKeysInArraysRecursive(array('foo' => 'bar', 'quz' => array('bar' => 'foo')), array('quz' => array('bar' => 'taw', 'foo' => 'bar'), 'foo' => null));
+    }
 }
 
 class ChildStdClass extends \stdClass

@@ -79,6 +79,7 @@ use BadMethodCallException;
  * @method static void nullOrPropertyExists($value, $object, $message = null, $propertyPath = null)
  * @method static void nullOrIsObject($value, $message = null, $propertyPath = null)
  * @method static void nullOrDate($value, $format, $message = null, $propertyPath = null)
+ * @method static void nullOrSameKeysInArrays($array, $array2, $message = null, $propertyPath = null)
  * @method static void allEq($value, $value2, $message = null, $propertyPath = null)
  * @method static void allSame($value, $value2, $message = null, $propertyPath = null)
  * @method static void allNotEq($value1, $value2, $message = null, $propertyPath = null)
@@ -137,6 +138,7 @@ use BadMethodCallException;
  * @method static void allPropertyExists($value, $object, $message = null, $propertyPath = null)
  * @method static void allIsObject($value, $message = null, $propertyPath = null)
  * @method static void allDate($value, $format, $message = null, $propertyPath = null)
+ * @method static void allSameKeysInArrays($array, $array2, $message = null, $propertyPath = null)
  * METHODEND
  */
 class Assertion
@@ -199,6 +201,7 @@ class Assertion
     const INVALID_DATE              = 213;
     const INVALID_XML_STRING        = 214;
     const INVALID_PROPERTY          = 215;
+    const INVALID_SAME_KEYS         = 216;
 
     /**
      * Exception to throw when an assertion failed.
@@ -1547,6 +1550,42 @@ class Assertion
         foreach ($choices as $choice) {
 
             self::notEmptyKey($values, $choice, $message, $propertyPath);
+        }
+    }
+
+    /**
+     * Determines if the first array has same keys as in the second. The order is not considered.
+     *
+     * @param array $array
+     * @param array $array2
+     * @param null  $message
+     * @param null  $propertyPath
+     */
+    public static function sameKeysInArrays(array $array, array $array2, $message = null, $propertyPath = null)
+    {
+        if (0 !== count(array_diff_key($array, $array2)) || 0 !== count(array_diff_key($array2, $array))) {
+            $message = $message ?: 'Keys of arrays are not same.';
+
+            throw static::createException($array, $message, static::INVALID_SAME_KEYS, $propertyPath, array('expected' => $array2));
+        }
+    }
+
+    /**
+     * Determines if the first array has same keys as in the second recursively. The order is not considered.
+     *
+     * @param array $array
+     * @param array $array2
+     * @param null  $message
+     * @param null  $propertyPath
+     */
+    public static function sameKeysInArraysRecursive(array $array, array $array2, $message = null, $propertyPath = null)
+    {
+        self::sameKeysInArrays($array, $array2, $message, $propertyPath);
+
+        foreach ($array as $key => $value) {
+            if (is_array($value) || is_array($value)) {
+                self::sameKeysInArraysRecursive($array[$key], $array2[$key]);
+            }
         }
     }
 
